@@ -14,9 +14,11 @@ describe('GreeterServiceController', () => {
     greeterServiceController = app.get<GreeterServiceController>(GreeterServiceController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(greeterServiceController.getHello()).toBe('Hello World!');
+  describe('sayHello', () => {
+    it('should return a greeting message', () => {
+      expect(greeterServiceController.sayHello({ name: 'Nest' })).toEqual({
+        message: 'Hello Nest',
+      });
     });
   });
 });

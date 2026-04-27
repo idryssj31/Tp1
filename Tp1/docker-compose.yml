@@ -1,0 +1,23 @@
+services:
+  greeter-service:
+    build:
+      context: .
+      dockerfile: apps/greeter-service/Dockerfile
+    container_name: greeter-service
+    environment:
+      GRPC_URL: 0.0.0.0:50051
+    ports:
+      - "50051:50051"
+
+  client-service:
+    build:
+      context: .
+      dockerfile: apps/client-service/Dockerfile
+    container_name: client-service
+    environment:
+      PORT: 3000
+      GREETER_URL: greeter-service:50051
+    depends_on:
+      - greeter-service
+    ports:
+      - "3000:3000"

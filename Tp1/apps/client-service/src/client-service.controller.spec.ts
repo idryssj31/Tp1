@@ -4,6 +4,7 @@ import { ClientServiceService } from './client-service.service';
 
 describe('ClientServiceController', () => {
   let clientServiceController: ClientServiceController;
+  let clientServiceService: ClientServiceService;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -12,11 +13,24 @@ describe('ClientServiceController', () => {
     }).compile();
 
     clientServiceController = app.get<ClientServiceController>(ClientServiceController);
+    clientServiceService = app.get<ClientServiceService>(ClientServiceService);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(clientServiceController.getHello()).toBe('Hello World!');
+  describe('getHome', () => {
+    it('should return a classic hello world HTML page', () => {
+      expect(clientServiceController.getHome()).toBe('<h1>Hello World</h1>');
+    });
+  });
+
+  describe('sayHello', () => {
+    it('should call gRPC greeting and return response', async () => {
+      jest
+        .spyOn(clientServiceService, 'sayHello')
+        .mockResolvedValue({ message: 'Hello Nest' });
+
+      await expect(clientServiceController.sayHello('Nest')).resolves.toEqual({
+        message: 'Hello Nest',
+      });
     });
   });
 });

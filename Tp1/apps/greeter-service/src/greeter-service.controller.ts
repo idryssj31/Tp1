@@ -1,12 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { GrpcMethod } from '@nestjs/microservices';
 import { GreeterServiceService } from './greeter-service.service';
+
+interface HelloRequest {
+  name: string;
+}
+
+interface HelloReply {
+  message: string;
+}
 
 @Controller()
 export class GreeterServiceController {
   constructor(private readonly greeterServiceService: GreeterServiceService) {}
 
-  @Get()
-  getHello(): string {
-    return this.greeterServiceService.getHello();
+  @GrpcMethod('Greeter', 'SayHello')
+  sayHello(data: HelloRequest): HelloReply {
+    return this.greeterServiceService.sayHello(data.name);
   }
 }

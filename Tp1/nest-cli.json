@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/tp1-microservices/src",
+  "sourceRoot": "apps/greeter-service/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/tp1-microservices/tsconfig.app.json"
+    "tsConfigPath": "apps/greeter-service/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/tp1-microservices",
+  "root": "apps/greeter-service",
   "projects": {
     "client-service": {
       "type": "application",
@@ -26,15 +26,6 @@
       "sourceRoot": "apps/greeter-service/src",
       "compilerOptions": {
         "tsConfigPath": "apps/greeter-service/tsconfig.app.json"
-      }
-    },
-    "tp1-microservices": {
-      "type": "application",
-      "root": "apps/tp1-microservices",
-      "entryFile": "main",
-      "sourceRoot": "apps/tp1-microservices/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/tp1-microservices/tsconfig.app.json"
       }
     }
   }
